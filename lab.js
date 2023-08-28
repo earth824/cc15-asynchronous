@@ -22,11 +22,25 @@
 //   });
 // }
 
-readFile('user.json', 'utf-8', function (err, data) {});
+const { readFile } = require('fs');
 
-function readFilePromise() {}
+readFile('user.json', 'utf-8', function (err, data) {
+  console.log(data);
+});
 
-readFilePromise()
+function readFilePromise(path, encoding) {
+  const promise = new Promise(function (resolve, reject) {
+    readFile(path, encoding, function (err, data) {
+      if (err) {
+        return reject(err);
+      }
+      resolve(data);
+    });
+  });
+  return promise;
+}
+
+readFilePromise('user.json', 'utf-8')
   .then(response => {
     console.log(response);
     // {

@@ -186,7 +186,7 @@ function b(age) {
   return promise;
 }
 
-const p = b(20);
+// const p = b(20);
 // p.then(response => {
 //   console.log(response);
 // });
@@ -196,16 +196,113 @@ const p = b(20);
 
 // [3, 6, 4].map(el => el * 3).filter().join()
 
-p.then(response => {
-  console.log('fullfilled', response);
-})
-  .catch(err => {
-    console.log('rejected', err);
-  })
-  .finally(() => {
-    console.log('finally block');
-  });
+// p.then(response => {
+//   console.log('fullfilled', response);
+// })
+//   .catch(err => {
+//     console.log('rejected', err);
+//   })
+//   .finally(() => {
+//     console.log('finally block');
+//   });
 
 // fn('less than eighteen')
 // fn = (response) => {}
 // fn('success')
+
+function readFilePromise(path, encoding) {
+  const promise = new Promise(function (resolve, reject) {
+    readFile(path, encoding, function (err, data) {
+      if (err) {
+        return reject(err);
+      }
+      resolve(data);
+    });
+  });
+  return promise;
+}
+
+// John:coke
+// readFilePromise('user.json', 'utf-8') // 10 S
+//   .then(response => {
+//     console.log(response);
+//     readFilePromise('product.json', 'utf-8') // 8S
+//       .then(resProduct => {
+//         console.log(resProduct);
+//         readFilePromise('product.json', 'utf-8') // 8S
+//           .then(response => {
+//             console.log(response);
+//             readFilePromise('product.json', 'utf-8') // 8S
+//               .then(response => {
+//                 console.log(response);
+//                 readFilePromise('product.json', 'utf-8') // 8S
+//                   .then(response => {
+//                     // 42S
+//                     console.log(response);
+//                   })
+//                   .catch(err => {
+//                     console.log(err);
+//                   });
+//               })
+//               .catch(err => {
+//                 console.log(err);
+//               });
+//           })
+//           .catch(err => {
+//             console.log(err);
+//           });
+//       })
+//       .catch(err => {
+//         console.log(err);
+//       });
+//     return 555;
+//   })
+//   .then(response555 => {
+//     console.log(response555);
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
+
+// readFilePromise('product.json', 'utf-8')
+//   .then(response => {
+//     console.log(response);
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
+
+// P1, P2, P3, P4, P5
+// const resultPromiseAll = Promise.all([P1, P2, P3, P4, P5])
+// [resolveP1, resolveP2, resolveP3, resolveP4, resolveP5]
+
+// const p1 = readFilePromise('user.json', 'utf-8');
+// const p2 = readFilePromise('product.json', 'utf-8');
+
+// const result = Promise.all([p1, p2]);
+// result
+//   .then(response => {
+//     const resUser = JSON.parse(response[0]);
+//     const resProduct = JSON.parse(response[1]);
+//     console.log(resUser.firstName + ':' + resProduct.name);
+//   })
+//   .catch(err => console.log(err));
+
+try {
+} catch (err) {}
+
+async function run() {
+  try {
+    const p1 = await readFilePromise('user.jso', 'utf-8');
+    const p2 = await readFilePromise('product.json', 'utf-8');
+    const parseUser = JSON.parse(p1);
+    const parseProduct = JSON.parse(p2);
+    console.log(parseUser.firstName + ':' + parseProduct.name);
+  } catch (err) {
+    console.log(err);
+    // something wrong
+  }
+}
+run();
+// const run = async function () {};
+// const run = async () => {};
