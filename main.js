@@ -1,3 +1,5 @@
+const { readFile } = require('fs');
+
 // function a() {
 //   console.log('a run');
 // } // 2 minute
@@ -106,7 +108,7 @@
 // import { readFile } from 'fs'
 
 // Common JS
-const { readFile } = require('fs'); // { readFile, ... }
+// const { readFile } = require('fs'); // { readFile, ... }
 // readFile('user.jso', { encoding: 'utf-8' }, function (err, data) {
 //   console.log(err);
 //   console.log(data);
@@ -213,14 +215,22 @@ function b(age) {
 function readFilePromise(path, encoding) {
   const promise = new Promise(function (resolve, reject) {
     readFile(path, encoding, function (err, data) {
-      if (err) {
-        return reject(err);
+      // if (err) {
+      //   return reject(err);
+      // }
+      // resolve(data);
+      if (data) {
+        console.log('success');
+        return resolve(data);
       }
-      resolve(data);
+      console.log('errrrrrr');
+      reject(err);
     });
   });
   return promise;
 }
+
+readFilePromise('user.json', 'utf-8').then(res => console.log(res));
 
 // John:coke
 // readFilePromise('user.json', 'utf-8') // 10 S
@@ -288,28 +298,28 @@ function readFilePromise(path, encoding) {
 //   })
 //   .catch(err => console.log(err));
 
-try {
-} catch (err) {}
+// try {
+// } catch (err) {}
 
-let a;
+// let a;
 
-async function run() {
-  try {
-    const p1 = await readFilePromise('user.json', 'utf-8');
-    const p2 = await readFilePromise('product.json', 'utf-8');
-    const parseUser = JSON.parse(p1);
-    const parseProduct = JSON.parse(p2);
-    // console.log(parseUser.firstName + ':' + parseProduct.name);
-    a = parseUser.firstName + ':' + parseProduct.name;
-    return parseUser.firstName + ':' + parseProduct.name;
-  } catch (err) {
-    console.log(err);
-    // something wrong
-  }
-}
+// async function run() {
+//   try {
+//     const p1 = await readFilePromise('user.json', 'utf-8');
+//     const p2 = await readFilePromise('product.json', 'utf-8');
+//     const parseUser = JSON.parse(p1);
+//     const parseProduct = JSON.parse(p2);
+//     // console.log(parseUser.firstName + ':' + parseProduct.name);
+//     a = parseUser.firstName + ':' + parseProduct.name;
+//     return parseUser.firstName + ':' + parseProduct.name;
+//   } catch (err) {
+//     console.log(err);
+//     // something wrong
+//   }
+// }
 
-run();
-console.log(a);
+// run();
+// console.log(a);
 
 // run().then(resposne => {
 //   console.log(resposne);

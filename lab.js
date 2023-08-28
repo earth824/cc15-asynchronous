@@ -30,25 +30,23 @@ readFile('user.json', 'utf-8', function (err, data) {
 
 function readFilePromise(path, encoding) {
   const promise = new Promise(function (resolve, reject) {
-    readFile(path, encoding, function (err, data) {
-      if (err) {
-        return reject(err);
-      }
-      resolve(data);
-    });
+    reject(200);
   });
   return promise;
 }
 
-readFilePromise('user.json', 'utf-8')
-  .then(response => {
-    console.log(response);
-    // {
-    //   "firstName": "John",
-    //   "lastName": "Doe",
-    //   "age": 49
-    // }
-  })
-  .catch(err => {
+const result = readFilePromise('user.json', 'utf-8')
+  .then(function (abcdefgh) {})
+  .catch(function (err) {});
+
+const run = async () => {
+  try {
+    const abcdefgh = await readFilePromise('user.json', 'utf-8');
+    console.log(p);
+  } catch (err) {
     console.log(err);
-  });
+  }
+};
+
+run();
+console.log('hello');
