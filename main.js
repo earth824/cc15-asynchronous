@@ -152,17 +152,17 @@ const { readFile } = require('fs'); // { readFile, ... }
 //   });
 // });
 
-function a() {
-  console.log('a');
-}
+// function a() {
+//   console.log('a');
+// }
 
-function c() {
-  console.log('c');
-}
+// function c() {
+//   console.log('c');
+// }
 
-function d(input) {
-  console.log(input);
-}
+// function d(input) {
+//   console.log(input);
+// }
 
 // a();
 // b(20);
@@ -291,18 +291,34 @@ function readFilePromise(path, encoding) {
 try {
 } catch (err) {}
 
+let a;
+
 async function run() {
   try {
-    const p1 = await readFilePromise('user.jso', 'utf-8');
+    const p1 = await readFilePromise('user.json', 'utf-8');
     const p2 = await readFilePromise('product.json', 'utf-8');
     const parseUser = JSON.parse(p1);
     const parseProduct = JSON.parse(p2);
-    console.log(parseUser.firstName + ':' + parseProduct.name);
+    // console.log(parseUser.firstName + ':' + parseProduct.name);
+    a = parseUser.firstName + ':' + parseProduct.name;
+    return parseUser.firstName + ':' + parseProduct.name;
   } catch (err) {
     console.log(err);
     // something wrong
   }
 }
+
 run();
+console.log(a);
+
+// run().then(resposne => {
+//   console.log(resposne);
+// });
+
+// async function run() {
+//   const result = await db.query('SELECT * FROM user WHERE email = "a@gmail.com"')
+//   result.password === inputPassword
+// }
+
 // const run = async function () {};
 // const run = async () => {};
